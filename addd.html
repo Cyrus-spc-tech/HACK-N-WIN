@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style4.css">
+    <title>Add Restaurant Page</title>
+</head>
+<body>
+    <div class="add-restaurant-container">
+        <h2>Add Restaurant</h2>
+        <form action="/submit" method="post">
+            <label for="restaurantName">Restaurant Name:</label>
+            <input type="text" id="restaurantName" name="restaurantName" required>
+            
+            <label for="cuisineType">Cuisine Type:</label>
+            <input type="text" id="cuisineType" name="cuisineType" required>
+            
+            <label for="location">Location:</label>
+            <input type="text" id="location" name="location" required>
+            
+            <button type="submit">Add Restaurant</button>
+        </form>
+    </div>
+    <img id="top-left-image" src="bg.png" alt="Top Left Image">
+</body>
+</html>

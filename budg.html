@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Budget Tracker</title>
+  <style>
+    body {
+
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-image: url("1000_F_432628469_lIoWjKX5sk9NT9zMiHJzdP8qLlNd92al.jpg");
+      backdrop-filter: blur(4px);
+      background-repeat: no-repeat;
+      background-size: cover;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    form {
+      background-color: rgba(72, 216, 199, 0.831);
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      position: fixed;
+    }
+    .img{
+      transform: translateX(-210px);
+      
+    }
+    label {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 16px;
+      box-sizing: border-box;
+    }
+
+    button {
+      background-color: #4caf50;
+      color: rgb(245, 245, 245);
+      padding: 10px 15px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    #calorieLog {
+      margin-top: 400px;
+      transform: translateX(400px);
+    }
+    #totalCalories{
+      margin-top: -400px;
+      transform: translateX(-300px);
+      font-size: larger;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+  <a href="zemmato.html"><img class="img" src="icons8-back-50.png"></a>
+
+  <form>
+    <label for="food">Food Item:</label>
+    <select id="food" name="food" onchange="updateCalories()">
+      <option value="" disabled selected>Select a food item</option>
+      <option value="apple">Apple</option>
+      <option value="banana">Banana</option>
+      <option value="pizza">Pizza</option>
+      <option value="salad">Salad</option>
+      <option value="chicken_breast">Chicken Breast</option>
+      <option value="rice">Rice</option>
+      <option value="spaghetti">Spaghetti</option>
+      <option value="avocado">Avocado</option>
+      <option value="orange">Orange</option>
+      <option value="grapes">Grapes</option>
+      <option value="sandwich">Sandwich</option>
+      <option value="egg">Egg</option>
+      <option value="yogurt">Yogurt</option>
+      <option value="cheese">Cheese</option>
+      <option value="nuts">Nuts</option>
+    </select>
+
+    <label for="calories">Price (in ₹) :</label>
+    <input type="number" id="calories" name="calories" readonly>
+
+    <button type="button" onclick="trackCalories()">Add Entry</button>
+  </form>
+
+  <div id="calorieLog">
+    <!-- Entries will be displayed here -->
+  </div>
+
+  <div id="totalCalories"></div>
+
+  <script>
+    let totalCalories = 0;
+
+    function updateCalories() {
+      const foodSelect = document.getElementById('food');
+      const caloriesInput = document.getElementById('calories');
+
+      const calorieData = {
+        apple: 95,
+        banana: 105,
+        pizza: 285,
+        salad: 150,
+        chicken_breast: 165,
+        rice: 215,
+        spaghetti: 200,
+        avocado: 160,
+        orange: 62,
+        grapes: 23,
+        sandwich: 300,
+        egg: 70,
+        yogurt: 150,
+        cheese: 110,
+        nuts: 200,
+      };
+
+      const selectedFood = foodSelect.value;
+      if (selectedFood in calorieData) {
+        caloriesInput.value = calorieData[selectedFood];
+      } else {
+        caloriesInput.value = '';
+      }
+    }
+
+    function trackCalories() {
+      const foodSelect = document.getElementById('food');
+      const caloriesInput = document.getElementById('calories');
+      const calorieLog = document.getElementById('calorieLog');
+      const totalCaloriesDiv = document.getElementById('totalCalories');
+
+      const food = foodSelect.options[foodSelect.selectedIndex].text;
+      const calories = parseInt(caloriesInput.value);
+
+      if (food && calories) {
+        const entry = document.createElement('p');
+        entry.textContent = `${food}: ${calories} ₹`;
+        calorieLog.appendChild(entry);
+
+        // Add calories to total
+        totalCalories += calories;
+        totalCaloriesDiv.textContent = `    Total Price: ${totalCalories}`;
+
+        // Clear input fields after adding an entry
+        foodSelect.selectedIndex = 0;
+        caloriesInput.value = '';
+      } else {
+        alert('Please select a food item and ensure calories are filled in.');
+      }
+    }
+  </script>
+
+</body>
+</html>
